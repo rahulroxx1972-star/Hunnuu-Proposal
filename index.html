@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Happy Valentine's! 💖</title>
+    <title>Happy Valentine's Boo Boo! 💖</title>
 
     <!-- Fonts -->
     <link
@@ -93,10 +93,23 @@
         }
 
         @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            25% { transform: scale(1.08); }
-            50% { transform: scale(1); }
-            75% { transform: scale(1.12); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            25% {
+                transform: scale(1.08);
+            }
+
+            50% {
+                transform: scale(1);
+            }
+
+            75% {
+                transform: scale(1.12);
+            }
         }
 
         h2 {
@@ -153,43 +166,6 @@
             font-style: italic;
         }
 
-        /* Celebration Screen */
-        .celebration {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb);
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            z-index: 1000;
-            animation: celebrateBg 0.8s ease-out;
-        }
-
-        @keyframes celebrateBg {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        .love-message {
-            font-family: "Playfair Display", serif;
-            font-size: 36px;
-            color: #fff;
-            margin-top: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            animation: loveFade 1s ease-out 1s both;
-            font-weight: 700;
-        }
-
-        @keyframes loveFade {
-            0% { opacity: 0; transform: scale(0.8) translateY(20px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
         /* Floating depth hearts */
         .heart {
             position: absolute;
@@ -213,36 +189,43 @@
 
         /* Responsive */
         @media (max-width: 480px) {
-            h2 { font-size: 23px; }
-            .emoji { font-size: 58px; }
-            button { padding: 12px 28px; font-size: 15px; }
-            #yes { left: 8%; }
-            #no { left: 55%; }
-            .love-message { font-size: 28px; }
+            h2 {
+                font-size: 23px;
+            }
+
+            .emoji {
+                font-size: 58px;
+            }
+
+            button {
+                padding: 12px 28px;
+                font-size: 15px;
+            }
+
+            #yes {
+                left: 8%;
+            }
+
+            #no {
+                left: 55%;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <div class="card" id="mainCard">
+    <div class="card">
         <div class="emoji">🦢💕</div>
-        <h2>Will you be my Valentine? 🦢💕</h2>
+        <h2>Will you be my Valentine Boo Boo? 🦢💕</h2>
 
         <div class="buttons">
-            <button id="yes">Yes 💖</button>
+            <button id="yes">Yes Boo Boo! 💖</button>
             <button id="no">No 🙈</button>
         </div>
 
-        <div class="hint">Some love stories don't allow "no" ✨</div>
-    </div>
-
-    <!-- Celebration Screen -->
-    <div class="celebration" id="celebration">
-        <div style="font-size: 48px; animation: bounce 1s infinite;">💖 YAY! 💖</div>
-        <div style="font-size: 24px; margin: 10px 0; color: #fff;">I can't wait for Valentine's Day with you! 🦢💋</div>
-        <div class="love-message">I love you amore 💙♾️🖤</div>
-    </div>
+        <div class="hint">Some love stories don't allow "no" Boo Boo ✨</div>
+    </body>
 
     <!-- Sounds -->
     <audio id="hoverSound" src="https://assets.mixkit.co/sfx/preview/mixkit-cartoon-voice-laugh-343.mp3"></audio>
@@ -251,8 +234,7 @@
     <script>
         const noBtn = document.getElementById("no");
         const yesBtn = document.getElementById("yes");
-        const mainCard = document.getElementById("mainCard");
-        const celebration = document.getElementById("celebration");
+        const card = document.querySelector(".card");
         const hoverSound = document.getElementById("hoverSound");
         const yesSound = document.getElementById("yesSound");
 
@@ -260,7 +242,7 @@
             hoverSound.currentTime = 0;
             hoverSound.play();
 
-            const cardRect = mainCard.getBoundingClientRect();
+            const cardRect = card.getBoundingClientRect();
             const btnRect = noBtn.getBoundingClientRect();
 
             const maxX = cardRect.width - btnRect.width - 10;
@@ -273,14 +255,13 @@
         yesBtn.addEventListener("click", () => {
             yesSound.play();
 
-            // Confetti burst
             confetti({
                 particleCount: 260,
                 spread: 120,
                 origin: { y: 0.65 }
             });
 
-            // Email notification (update your email)
+            // Send email via FormSubmit - UPDATE EMAIL TO YOURS
             fetch("https://formsubmit.co/ajax/your-email@gmail.com", {
                 method: "POST",
                 headers: {
@@ -288,14 +269,34 @@
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    message: "She said YES! 💖🦢 I love you amore 💙♾️🖤"
+                    message: "Boo Boo said YES! 💖🦢 Happy Valentine's!"
                 })
-            }).catch(console.log);
+            })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.log(error));
 
-            // Show celebration
-            mainCard.style.display = 'none';
-            celebration.style.display = 'flex';
+            setTimeout(() => {
+                alert("YAY Boo Boo! 💕 I can't wait for Valentine's Day with you! 🦢💋");
+            }, 500);
+        });
 
-            // Extra confetti & hearts
-            setInterval(() => {
-                confetti({ part
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.className = "heart";
+            heart.innerHTML = Math.random() > 0.5 ? "❤️" : "💗";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = Math.random() * 22 + 14 + "px";
+            heart.style.animationDuration = Math.random() * 3 + 4 + "s";
+            heart.style.opacity = Math.random() * 0.5 + 0.4;
+
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 8000);
+        }
+
+        setInterval(createHeart, 380);
+    </script>
+
+</body>
+
+</html>
